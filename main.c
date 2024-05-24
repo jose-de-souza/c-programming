@@ -1,10 +1,18 @@
 #include "main.h"
 
 int main(void) 
-{
-    dynamic_vector();   
-
+{   
+    pointers();
     return 0;
+}
+
+void pointers(void)
+{
+    int a = 10;
+    int *p = &a;
+    printf("VARIABLE &a: %d | Value  a: %d\n", &a, a);
+    printf("POINTER   p: %d | Value *p: %d\n", p, *p);
+
 }
 
 void malloc_and_free(void) 
@@ -31,7 +39,8 @@ void dynamic_vector(void)
     if(vector == NULL) {
         printf("ERROR: memory allocation for vector failed.\n");
         exit(1);
-    } else {
+    }
+     else {
         printf("%d bytes allocated for vector.\n", sizeof(int) * vector_size);
     }
 
