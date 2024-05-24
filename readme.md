@@ -5,7 +5,13 @@
 
 ## Compiling
 
+### Windows
+```mkdir dist```
 ```gcc -o dist\main main.c```
+
+### Unix, Linux, macOS
+```mkdir dist```
+```gcc -o dist/main main.c```
 
 ## Running
 
