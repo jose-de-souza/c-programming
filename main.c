@@ -65,14 +65,15 @@ void vectors_and_matrices(void)
 }
 
 void memory_dump(void)
-{    
-    char *c = "0";
+{
+    char start[1];
+    char *c = start;
     int i = 0;
     int j = 0;
 
-    while (i < 2000000)
+    while (i < 1000000)
     {
-        if (j == 64)
+        if (j == 255)
         {
             printf("\n");
             j = 0;
