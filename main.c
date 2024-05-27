@@ -2,7 +2,7 @@
 
 int main(void)
 {
-    memory_dump();
+    vectors_and_matrices();
     return 0;
 }
 
@@ -60,8 +60,15 @@ void vectors_and_matrices(void)
     }
 
     // point back to the first element of a
-    // p = a;
+    p = a;
+    p = (int *)(((int)p) + (3 * sizeof(int))); // *p will be 40 because we are jumping to the 4th index = 0 + 3
     printf("\na[0] | %d | &a[1] | %p | %lu | p | %p | %lu | *p | %d\n", a[0], &a[0], &a[0], p, p, *p);
+
+    p = a;
+    // Get the 7th element = 70
+    p = (int *)(((int)p) + (6 * sizeof(int)));
+    int seventh = *p;
+    printf("Seventh Element through *p = (int*)(((int)p) + (5 * sizeof(int))) = %d\n", seventh);
 }
 
 void memory_dump(void)
