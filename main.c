@@ -2,7 +2,7 @@
 
 int main(void)
 {
-    chess();
+    dynamic_vector();
     return 0;
 }
 
@@ -300,12 +300,22 @@ void dynamic_vector(void)
     vector[5] = 6000000;
     vector[6] = 70000000;
     vector[7] = 800000000;
-    vector[8] = 900000000;
+    vector[8] = 500000000;
     vector[9] = 100000000;
 
     for (int i = 0; i < vector_size; i++)
     {
-        printf("%d\n", vector[i]);
+        printf("%d\n", *((int *)(((int)vector) + (i * sizeof(int)))));
     }
+
+    // printf("%d", *((int *)(((int)vector) + (8 * sizeof(int)))));
+    
+    
+    // while(vector < ((int *)(((int)vector) + (9 * sizeof(int))))) {
+    //     printf("%d\n", *vector);
+    //     vector++;
+    // }
+
+
     free(vector);
 }
