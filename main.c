@@ -303,19 +303,33 @@ void dynamic_vector(void)
     vector[8] = 500000000;
     vector[9] = 100000000;
 
-    for (int i = 0; i < vector_size; i++)
+    printf("%p %lu\n", vector, vector);
+
+    int *last_element_address = &vector[9];
+    int *first_element_address = &vector[0];
+    
+    while (vector <= last_element_address)
     {
-        printf("%d\n", *((int *)(((int)vector) + (i * sizeof(int)))));
+        //printf("%d\n", *((int *)(((int)vector) + (i * sizeof(int)))));
+        printf("%d %d %d \n", *vector, &vector[9], vector);
+        vector++;
     }
 
-    // printf("%d", *((int *)(((int)vector) + (8 * sizeof(int)))));
-    
-    
-    // while(vector < ((int *)(((int)vector) + (9 * sizeof(int))))) {
+    // Before resetting the vector pointer should be at the last element position
+    printf("%p %lu\n", vector, vector);
+
+    // Reset the Vector to the first position which is an offset of 40 (40 elements) for the code above
+    vector = first_element_address;   
+
+    printf("%p %lu\n", vector, vector);
+
+    // Another way of iterating through the vector
+    // for (int i = 0; i < vector_size; i++)
+    // {
+    //     //printf("%d\n", *((int *)(((int)vector) + (i * sizeof(int)))));
     //     printf("%d\n", *vector);
     //     vector++;
     // }
-
 
     free(vector);
 }
