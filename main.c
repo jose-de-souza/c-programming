@@ -2,7 +2,7 @@
 
 int main(void)
 {
-    dynamic_vector();
+    chess();
     return 0;
 }
 
@@ -73,108 +73,73 @@ void vectors_and_matrices(void)
 
 void chess(void)
 {
-    printf("Chess by Cm573r\n\n");
     typedef enum
     {
         NO_PIECE,
-        ROOK,
-        KNIGHT,
-        BISHOP,
-        QUEEN,
-        KING,
-        NOT_USED,
-        PAWN
+        /**
+         * The White Pieces
+         */
+        QR_W,
+        QN_W,
+        QB_W,
+        Q_W,
+        K_W,
+        KB_W,
+        KN_W,
+        KR_W,
+        P_QR_W,
+        P_QN_W,
+        P_QB_W,
+        P_Q_W,
+        P_K_W,
+        P_KB_W,
+        P_KN_W,
+        P_KR_W,
+
+        /**
+         * The Black Pieces
+         */
+        QR_B,
+        QN_B,
+        QB_B,
+        Q_B,
+        K_B,
+        KB_B,
+        KN_B,
+        KR_B,
+        P_QR_B,
+        P_QN_B,
+        P_QB_B,
+        P_Q_B,
+        P_K_B,
+        P_KB_B,
+        P_KN_B,
+        P_KR_B
 
     } Chessmen;
 
-    typedef enum
-    {
-        NO_COLOR,
-        WHITE,
-        BLACK
-    } Chess_Piece_Color;
+    printf("Initializing the Board...\n");
 
-    typedef struct
-    {
-        Chessmen piece;
-        Chess_Piece_Color color;
-
-    } Chess_Piece;
-
-    printf("Types defined.\n");
-
-    /**
-     * The Board
-     */
-
-    Chess_Piece chess_board[8][8];
-    printf("Board created.\n");
-
-    /**
-     * The White Pieces
-     */
-    Chess_Piece QR_W = {ROOK, WHITE};
-    Chess_Piece QN_W = {KNIGHT, WHITE};
-    Chess_Piece QB_W = {BISHOP, WHITE};
-    Chess_Piece Q_W = {QUEEN, WHITE};
-    Chess_Piece K_W = {KING, WHITE};
-    Chess_Piece KB_W = {BISHOP, WHITE};
-    Chess_Piece KN_W = {KNIGHT, WHITE};
-    Chess_Piece KR_W = {ROOK, WHITE};
-    Chess_Piece P_QR_W = {PAWN, WHITE};
-    Chess_Piece P_QN_W = {PAWN, WHITE};
-    Chess_Piece P_QB_W = {PAWN, WHITE};
-    Chess_Piece P_Q_W = {PAWN, WHITE};
-    Chess_Piece P_K_W = {PAWN, WHITE};
-    Chess_Piece P_KB_W = {PAWN, WHITE};
-    Chess_Piece P_KN_W = {PAWN, WHITE};
-    Chess_Piece P_KR_W = {PAWN, WHITE};
-
-    /**
-     * The Black Pieces
-     */
-    Chess_Piece QR_B = {ROOK, BLACK};
-    Chess_Piece QN_B = {KNIGHT, BLACK};
-    Chess_Piece QB_B = {BISHOP, BLACK};
-    Chess_Piece Q_B = {QUEEN, BLACK};
-    Chess_Piece K_B = {KING, BLACK};
-    Chess_Piece KB_B = {BISHOP, BLACK};
-    Chess_Piece KN_B = {KNIGHT, BLACK};
-    Chess_Piece KR_B = {ROOK, BLACK};
-    Chess_Piece P_QR_B = {PAWN, BLACK};
-    Chess_Piece P_QN_B = {PAWN, BLACK};
-    Chess_Piece P_QB_B = {PAWN, BLACK};
-    Chess_Piece P_Q_B = {PAWN, BLACK};
-    Chess_Piece P_K_B = {PAWN, BLACK};
-    Chess_Piece P_KB_B = {PAWN, BLACK};
-    Chess_Piece P_KN_B = {PAWN, BLACK};
-    Chess_Piece P_KR_B = {PAWN, BLACK};
-
-    printf("Pieces created.\n");
+    Chessmen chess_board[8][8];
 
     // Make the board blank
-    const Chess_Piece EMPTY_SQUARE = {NO_PIECE, NO_COLOR};
-    Chess_Piece *board_pointer = &chess_board[0][0];
+    Chessmen *current_square = &chess_board[0][0];
+    Chessmen *last_square = &chess_board[7][7];
 
-    printf("Emptying the Board...\n");
-
-    while (board_pointer <= &chess_board[7][7])
+    while (current_square <= last_square)
     {
-        *board_pointer = EMPTY_SQUARE;
-        board_pointer++;
+        *current_square = NO_PIECE;
+        current_square++;
     }
 
     /**
      * Back to the first square
      */
-    board_pointer = &chess_board[0][0];
-
-    printf("Initializing the Board...\n");
+    current_square = &chess_board[0][0];
 
     /**
      * Putting the White Pieces
      */
-
     chess_board[0][0] = QR_W;
     chess_board[0][1] = QN_W;
     chess_board[0][2] = QB_W;
@@ -195,7 +160,6 @@ void chess(void)
     /**
      * Putting the Black Pieces
      */
-
     chess_board[7][0] = QR_B;
     chess_board[7][1] = QN_B;
     chess_board[7][2] = QB_B;
@@ -219,22 +183,22 @@ void chess(void)
     printf("Printing the Chess Board...\n\n");
     int row = 0;
 
-    while (board_pointer <= &chess_board[7][7])
+    while (current_square <= last_square)
     {
         if (row == 8)
         {
             printf("\n");
             row = 0;
         }
-        printf("%d ", ((Chess_Piece)*board_pointer).piece);
-        board_pointer++;
+        printf("%02x ", *current_square);
+        current_square++;
         row++;
     }
 
     /**
      * Back to the first square
      */
-    board_pointer = &chess_board[0][0];
+    current_square = &chess_board[0][0];
 }
 
 void memory_dump(void)
@@ -307,10 +271,10 @@ void dynamic_vector(void)
 
     int *last_element_address = &vector[9];
     int *first_element_address = &vector[0];
-    
+
     while (vector <= last_element_address)
     {
-        //printf("%d\n", *((int *)(((int)vector) + (i * sizeof(int)))));
+        // printf("%d\n", *((int *)(((int)vector) + (i * sizeof(int)))));
         printf("%d %d %d \n", *vector, &vector[9], vector);
         vector++;
     }
@@ -319,7 +283,7 @@ void dynamic_vector(void)
     printf("%p %lu\n", vector, vector);
 
     // Reset the Vector to the first position which is an offset of 40 (40 elements) for the code above
-    vector = first_element_address;   
+    vector = first_element_address;
 
     printf("%p %lu\n", vector, vector);
 
